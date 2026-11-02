@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grocery Aisles</title>
+<meta name="description" content="Grocery Aisles is a fast arcade dodge game set in a busy grocery store. Grab your list, dodge shoppers, and race to checkout.">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:title" content="Grocery Aisles">
+<meta property="og:description" content="Grab your list. Cross the aisles. Don't crash your cart.">
+<meta property="og:image" content="https://groceryaislesgames.github.io/screenshot.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef2f6;
+    --grid: rgba(15, 23, 42, 0.035);
+    --ink: #0f1720;
+    --mute: #5b6673;
+    --blue: #1f6fef;
+    --blue-deep: #1763d8;
+    --card: #ffffff;
+    --line: #dde3ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e131a;
+      --grid: rgba(255, 255, 255, 0.03);
+      --ink: #e9eef4;
+      --mute: #9aa6b3;
+      --blue: #5b9bff;
+      --card: #161d26;
+      --line: #263040;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--ink);
+    font: 17px/1.55 "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 56px 16px 40px;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .icon {
+    width: 168px;
+    height: 168px;
+    border-radius: 38px;
+    box-shadow: 0 18px 40px rgba(23, 99, 216, 0.28);
+    display: block;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(44px, 8vw, 72px);
+    line-height: 0.98;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  h1 span { color: var(--blue); display: block; }
+  .tagline {
+    margin: 16px 0 0;
+    color: var(--mute);
+    font-size: clamp(18px, 2.4vw, 22px);
+  }
+  .play {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    padding: 14px 22px;
+    border-radius: 12px;
+    background: var(--blue-deep);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 6px 18px rgba(23, 99, 216, 0.3);
+  }
+  .play:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(23, 99, 216, 0.36); }
+  .play svg { width: 20px; height: 20px; flex: none; }
+  .shot {
+    margin: 48px 0 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--card);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .about {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .about div {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .about h2 { margin: 0 0 4px; font-size: 17px; }
+  .about p { margin: 0; color: var(--mute); font-size: 15px; }
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 20px 16px 28px;
+    text-align: center;
+    color: var(--mute);
+    font-size: 14px;
+  }
+  footer a { color: var(--ink); }
+  footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-bottom: 8px; }
+  .stripe { display: flex; height: 8px; }
+  .stripe i { flex: 1; }
+  .stripe i:nth-child(1) { background: #dcefe9; }
+  .stripe i:nth-child(2) { background: #e6ece4; }
+  .stripe i:nth-child(3) { background: #f5e4bf; }
+  .stripe i:nth-child(4) { background: #cfe0ff; }
+  @media (max-width: 640px) {
+    main { padding-top: 36px; }
+    .hero { grid-template-columns: 1fr; gap: 20px; text-align: center; }
+    .icon { width: 120px; height: 120px; border-radius: 28px; margin: 0 auto; }
+    .about { grid-template-columns: 1fr; }
+    .shot { margin-top: 32px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <img class="icon" src="icon.png" alt="Grocery Aisles app icon" width="168" height="168">
+    <div>
+      <h1>Grocery <span>Aisles</span></h1>
+      <p class="tagline">Grab your list. Cross the aisles. Don't crash your cart.</p>
+      <a class="play" href="https://play.google.com/store/apps/details?id=com.groceryaisles.game">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2.5v19c0 .4.4.7.8.5l16.5-9.5c.4-.2.4-.8 0-1L4.8 2C4.4 1.8 4 2.1 4 2.5z"/></svg>
+        Get it on Google Play
+      </a>
+    </div>
+  </section>
+
+  <figure class="shot">
+    <img src="screenshot.jpg" alt="Gameplay: dodging shoppers and carts in a busy grocery store" width="1280" height="720" loading="lazy">
+  </figure>
+
+  <section class="about">
+    <div>
+      <h2>Grab your list</h2>
+      <p>Grab every item on your list quickly to build a combo multiplier up to x5.</p>
+    </div>
+    <div>
+      <h2>Dodge the chaos</h2>
+      <p>Faster carts, U-turning shoppers, slippery spills and mop workers every level.</p>
+    </div>
+    <div>
+      <h2>Race to checkout</h2>
+      <p>Quick runs, perfect for a coffee break. Chase the top 10 on your leaderboard.</p>
+    </div>
+  </section>
+</main>
+
+<div class="stripe" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<footer>
+  <nav>
+    <a href="https://play.google.com/store/apps/details?id=com.groceryaisles.game">Google Play</a>
+    <a href="https://groceryaislesgames.github.io/privacy-policy/">Privacy Policy</a>
+    <a href="mailto:groceryaislesgame@gmail.com">Contact</a>
+  </nav>
+  © 2026 Grocery Aisles
+</footer>
+</body>
+</html>
